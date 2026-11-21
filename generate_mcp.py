@@ -16,5 +16,4 @@ session = composio.sessions.create(
 print("YOUTUBE MCP URL:")
 print(session.mcp.url)
 
-print("MCP HEADERS:")
-print(session.mcp.headers)
+print("MCP connection configured. Connection headers are intentionally hidden.")
