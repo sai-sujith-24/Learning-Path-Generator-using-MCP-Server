@@ -29,7 +29,7 @@ cfg = RunnableConfig(recursion_limit=100)
 
 def initialize_model(google_api_key: str):
     return ChatGoogleGenerativeAI(
-        model="gemini-3.8-flash",
+        model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
         google_api_key=google_api_key,
         temperature=0
     )
@@ -48,10 +48,6 @@ async def setup_agent_with_tools(
             "COMPOSIO_CONSUMER_API_KEY is missing from your .env file."
         )
 
-    if not COMPOSIO_API_KEY.startswith("ck_"):
-        raise ValueError(
-            "Invalid Composio consumer key. Expected a key starting with ck_."
-        )
 
     if progress_callback:
         progress_callback("Connecting to Composio MCP...")
