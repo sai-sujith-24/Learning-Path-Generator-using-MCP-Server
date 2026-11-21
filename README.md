@@ -1,61 +1,42 @@
-# Learning Path Generator with Model Context Protocol (MCP)
+# AI Learning Path Generator using MCP
 
-This project is a Streamlit-based web application that generates personalized learning paths using the Model Context Protocol (MCP). It integrates with various services including YouTube, Google Drive, and Notion to create comprehensive learning experiences.
+A Streamlit app that uses LangChain/LangGraph, Gemini, and Composio MCP tools to build a learning path, research YouTube learning videos, and request a Google Drive document or Notion page plus a playlist.
 
-## Features
-
-- 🎯 Generate personalized learning paths based on your goals
-- 🎥 Integration with YouTube for video content
-- 📁 Google Drive integration for document storage
-- 📝 Notion integration for note-taking and organization
-- 🚀 Real-time progress tracking
-- 🎨 User-friendly Streamlit interface
-
-## Prerequisites
-
+## Requirements
 - Python 3.10+
-- Google ai Studio API Key
-- Pipedream URLs for integrations (YouTube and either Drive or Notion)
+- Google Gemini API key
+- Composio account and MCP consumer key
+- Connected YouTube and Google Drive or Notion integration in Composio
 
-## Installation
-
-1. Clone the repository:
-
-2. Create and activate a virtual environment:
-
-3. Install the required packages:
+## Quick start
 ```bash
+git clone https://github.com/sai-sujith-24/Learning-Path-Generator-using-MCP-Server.git
+cd Learning-Path-Generator-using-MCP-Server
+python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Configuration
+Create a local `.env` using `.env.example` as a template. Never commit live API keys.
 
-Before running the application, you'll need to set up:
-
-1. Google API Key
-2. Pipedream URLs for:
-   - YouTube (required)
-   - Google Drive or Notion (based on your preference)
-
-## Running the Application
-
-To start the application, run:
 ```bash
 streamlit run app.py
 ```
 
-The application will be available at `http://localhost:8501` by default.
+Open the Streamlit address shown in your terminal (usually http://localhost:8501). Enter a Gemini API key, your learning goal, and a Google Drive/Notion destination. Confirm integration authorizations separately in Composio.
 
-## Usage
+## Configuration
+- `COMPOSIO_CONSUMER_API_KEY`: secret Composio consumer key.
+- `COMPOSIO_MCP_URL`: MCP endpoint for your Composio session. Replace the example URL with the one your account supplies.
+- `GEMINI_MODEL`: Gemini model ID (defaults to `gemini-2.5-flash`; check availability for your account).
 
-1. Enter your Google ai studio API key and Pipedream URLs in the sidebar
-2. Select your preferred secondary tool (Drive or Notion)
-3. Enter your learning goal (e.g., "I want to learn python basics in 3 days")
-4. Click "Generate Learning Path" to create your personalized learning plan
+Use `python test_composio.py` to verify which tools are available. `generate_mcp.py` demonstrates creating a session; it never prints authentication headers.
 
-## Project Structure
+## Files
+- `app.py`: Streamlit frontend
+- `utils.py`: agent and MCP client
+- `prompt.py`: agent instructions
+- `generate_mcp.py`: MCP session example
+- `test_composio.py`: connection tester
 
-- `app.py` - Main Streamlit application
-- `utils.py` - Utility functions and helper methods
-- `prompt.py` - Prompt template
-- `requirements.txt` - Project dependencies
+## Limitations and safety
+Creating playlists/documents requires live authorized services, permissions, and tool schemas. Tools may fail independently; inspect actual outputs and do not assume success. The model may select unsuitable results; review generated links and content. For public deployment, add per-user authorization, safe error handling, connection cleanup, rate limits and automated integration tests.
