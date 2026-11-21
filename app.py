@@ -48,8 +48,8 @@ google_api_key = st.sidebar.text_input(
     help="Enter your Gemini API key."
 )
 
-st.sidebar.success(
-    "Composio MCP connection configured through .env"
+st.sidebar.info(
+    "Composio connection is checked when you generate a learning path."
 )
 
 st.sidebar.markdown(
@@ -226,4 +226,5 @@ if st.button(
 
             st.error(f"An error occurred: {error}")
 
-            st.exception(error)
+            # Do not expose exception internals or connection details in the UI.
+            st.info("Check your API credentials, model name, integrations, and terminal logs.")
