@@ -4,3 +4,4 @@ langchain-mcp-adapters
 langchain-google-genai
 streamlit
 python-dotenv
+composio>=0.8
